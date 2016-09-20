@@ -1,0 +1,44 @@
+#! python
+
+
+def build(ctx):
+
+    ctx(
+        features='run_py_script',
+        source='simulation_data.py',
+        deps=[
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'draws.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'samples.json')
+        ],
+        target=ctx.path_to(ctx, 'OUT_DATA', 'simulation_data.pickle'),
+        name='simulation_data'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='data_preparation_pwt71.py',
+        deps=ctx.path_to(
+            ctx, 'IN_DATA', 'pwt71_wo_country_names_wo_g_vars.csv'
+        ),
+        target=[
+            ctx.path_to(ctx, 'OUT_DATA', 'data_pwt71.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'years_pwt.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'countries.csv')
+        ],
+        name='data_pwt'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='data_preparation_pwt71_2010.py',
+        deps=ctx.path_to(
+            ctx, 'IN_DATA', 'pwt71_wo_country_names_wo_g_vars.csv'
+        ),
+        target=[
+            ctx.path_to(ctx, 'OUT_DATA', 'data_pwt71_2010.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'years_pwt_2010.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'countries_2010.csv')
+        ],
+        name='data_pwt_2010'
+    )

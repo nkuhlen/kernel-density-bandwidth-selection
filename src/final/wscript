@@ -1,0 +1,91 @@
+#! python
+
+
+def build(ctx):
+
+    ctx(
+        features='run_py_script',
+        source='fig_world_income_distribution.py',
+        deps=[ctx.path_to(
+            ctx, 'OUT_ANALYSIS', 'estimated_densities_pwt71.json'
+        )],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_FIGURES', 'fig_world_income_distribution_1970.pdf'
+            ), ctx.path_to(
+                ctx, 'OUT_FIGURES', 'fig_world_income_distribution_1980.pdf'
+            ), ctx.path_to(
+                ctx, 'OUT_FIGURES', 'fig_world_income_distribution_1990.pdf'
+            ), ctx.path_to(
+                ctx, 'OUT_FIGURES', 'fig_world_income_distribution_2000.pdf'
+            ), ctx.path_to(
+                ctx, 'OUT_FIGURES', 'fig_world_income_distribution_2010.pdf'
+            ),
+        ],
+        name='figure_world_income_distribution'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='fig_world_income_distribution_2010.py',
+        deps=[ctx.path_to(
+            ctx, 'OUT_ANALYSIS', 'estimated_densities_pwt71_2010.json'
+        )],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_FIGURES',
+                'fig_world_income_distribution_2010_all_countries.pdf'
+            )
+        ],
+        name='figure_world_income_distribution_2010'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='fig_simulation_histograms.py',
+        deps=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS',
+                'estimated_densities_simulated_data.pickle'
+            ),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'samples.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'bw_methods_simulation_data.pickle'
+            ),
+            ctx.path_to(ctx, 'OUT_ANALYSIS', 'opt_bw_dagum.pickle'),
+            ctx.path_to(ctx, 'OUT_ANALYSIS', 'opt_bw_gaussian.pickle')
+        ],
+        name='simulation_data_histograms'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='fig_simulation_true_densities.py',
+        deps=ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+        name='simulation_data_true_densities_plot'
+    )
+
+    ctx(
+        features='run_r_script',
+        source='fig_map_included_countries.r',
+        deps=ctx.path_to(
+            ctx, 'OUT_DATA', 'countries.csv'
+        ),
+        target=ctx.path_to(
+            ctx, 'OUT_FIGURES', 'fig_map_included_countries.pdf'
+        ),
+        name='fig_map_included_countries'
+    )
+
+    ctx(
+        features='run_r_script',
+        source='fig_map_included_countries_2010.r',
+        deps=ctx.path_to(
+            ctx, 'OUT_DATA', 'countries_2010.csv'
+        ),
+        target=ctx.path_to(
+            ctx, 'OUT_FIGURES', 'fig_map_included_countries_2010.pdf'
+        ),
+        name='fig_map_included_countries_2010'
+    )

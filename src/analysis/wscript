@@ -1,0 +1,93 @@
+#! python
+
+
+def build(ctx):
+
+    ctx(
+        features='run_py_script',
+        source='density_estimation_simulated_data.py',
+        deps=[
+            ctx.path_to(ctx, 'OUT_DATA', 'simulation_data.pickle'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'draws.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'samples.json'),
+            ctx.path_to(ctx, 'IN_MODEL_CODE', 'kde.py')
+        ],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS',
+                'estimated_densities_simulated_data.pickle'
+            ), ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'bw_methods_simulation_data.pickle'
+            )
+        ],
+        name='density_estimation_simulated_data'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='density_estimation_pwt71.py',
+        deps=[
+            ctx.path_to(ctx, 'OUT_DATA', 'data_pwt71.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'years_pwt.pickle'),
+            ctx.path_to(ctx, 'IN_MODEL_CODE', 'kde.py')
+        ],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'estimated_densities_pwt71.json'
+            )
+        ],
+        name='density_estimation_pwt71'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='density_estimation_pwt71_2010.py',
+        deps=[
+            ctx.path_to(ctx, 'OUT_DATA', 'data_pwt71_2010.pickle'),
+            ctx.path_to(ctx, 'OUT_DATA', 'years_pwt_2010.pickle'),
+            ctx.path_to(ctx, 'IN_MODEL_CODE', 'kde.py')
+        ],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'estimated_densities_pwt71_2010.json'
+            )
+        ],
+        name='density_estimation_pwt71_2010'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='mise_optimal_bandwidth_dagum_mixture.py',
+        deps=[
+            ctx.path_to(ctx, 'OUT_DATA', 'simulation_data.pickle'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'draws.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'samples.json'),
+            ctx.path_to(ctx, 'IN_MODEL_CODE', 'kde.py')
+        ],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'opt_bw_dagum.pickle'
+            )
+        ],
+        name='mise_optimal_bandwidth_dagum_mixture'
+    )
+
+    ctx(
+        features='run_py_script',
+        source='mise_optimal_bandwidth_gaussian_mixture.py',
+        deps=[
+            ctx.path_to(ctx, 'OUT_DATA', 'simulation_data.pickle'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'draws.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'densities.json'),
+            ctx.path_to(ctx, 'IN_MODEL_SPECS', 'samples.json'),
+            ctx.path_to(ctx, 'IN_MODEL_CODE', 'kde.py')
+        ],
+        target=[
+            ctx.path_to(
+                ctx, 'OUT_ANALYSIS', 'opt_bw_gaussian.pickle'
+            )
+        ],
+        name='mise_optimal_bandwidth_gaussian_mixture'
+    )

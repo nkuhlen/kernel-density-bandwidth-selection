@@ -1,0 +1,38 @@
+{    
+    "density_0": {
+        "distribution": "standard_normal",
+        "alpha": 1,
+        "mu_1": 0,
+        "sigma_1": 1,
+        "beta": 0,
+        "mu_2": 8,
+        "sigma_2": 1,
+        "gamma": 0,
+        "mu_3": 0,
+        "sigma_3": 1
+    },
+
+    "density_1": {
+        "distribution": "normal",
+        "alpha": 0.5,
+        "mu_1": 1.5,
+        "sigma_1": 0.3,
+        "beta": 0.5,
+        "mu_2": 3.5,
+        "sigma_2": 0.3,
+        "gamma": 0,
+        "mu_3": 0,
+        "sigma_3": 1
+    },
+
+    "density_2": {
+        "distribution": "burr3",
+        "alpha": 0.8,
+        "c_1": 4,
+        "d_1": 1,
+        "beta": 0.2,
+        "c_2": 8,
+        "d_2": 500
+    }
+
+}
