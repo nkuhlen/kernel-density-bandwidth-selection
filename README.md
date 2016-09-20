@@ -1,5 +1,5 @@
 # Bandwidth Selection for Kernel Density Estimation
-Note: This repository only contains the code used for the estimation, simulation and visualisation parts of the thesis. The thesis itself is available upon request.
+**Note**: This repository only contains the code used for the estimation, simulation and visualisation parts of the thesis. The thesis itself is available upon request.
 
 This project analyses the performance of different bandwidth selection methods when applied to both simulated and real world data. In particular, I apply the procedures to estimate the world income distribution which allows to investigate the development of income inequality between countries. 
 
